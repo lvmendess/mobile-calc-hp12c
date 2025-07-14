@@ -17,4 +17,4 @@
   ex: 1000 PV 23298.074 FV 12 n i  
   resultado i = 0.29999995  
   
-clone https://github.com/lvmendess/mobile-calc-hp12c
+https://github.com/lvmendess/mobile-calc-hp12c
