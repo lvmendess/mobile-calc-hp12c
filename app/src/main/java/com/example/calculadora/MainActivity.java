@@ -127,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
         dotButton = findViewById(R.id.dot);
 
         pilha = new Stack<>();
-        pilhaJuros = new Stack<>();
 
         nButton.setOnClickListener(new View.OnClickListener() {
             @Override
