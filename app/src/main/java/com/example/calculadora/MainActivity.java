@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private float n, i, pv, fv;
     private boolean isAddition, isSubtraction, isMultiplication, isDivision;
     private Stack<Float> pilha;
-    private Stack<String> pilhaJuros;
 
     public float calcular(Stack<Float> operandos){
         float num2 = operandos.pop();
