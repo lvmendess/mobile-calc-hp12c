@@ -21,12 +21,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText editText;
     private TextView resultText;
     private Button addButton, subtractButton, multiplyButton, divideButton, enterButton, clearButton;
-    private Button n, i, pv, fv;
+    private Button nButton, iButton, pvButton, fvButton;
     private Button num1Button, num2Button, num3Button, num4Button;
     private Button num5Button, num6Button, num7Button, num8Button, num9Button, zeroButton, dotButton;
     private double num1, num2;
+    private float n, i, pv, fv;
     private boolean isAddition, isSubtraction, isMultiplication, isDivision;
     private Stack<Float> pilha;
+    private Stack<String> pilhaJuros;
 
     public float calcular(Stack<Float> operandos){
         float num2 = operandos.pop();
@@ -47,6 +49,60 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return resultado;
+    }
+
+    public float calcularFV(Stack<Float> pilha){
+        //System.out.println(pilha.pop());
+        n = this.pilha.pop();
+        //System.out.println(n);
+        i = this.pilha.pop();
+        //System.out.println(i);
+        pv = this.pilha.pop();
+        //System.out.println(pv);
+        fv = (float) ((float) pv * Math.pow((1+i), n));
+        //System.out.println(fv);
+        return fv;
+    }
+
+    public float calcularPV(Stack<Float> pilha){
+        pilha.pop();
+        n = this.pilha.pop();
+        //System.out.println(n);
+        i = this.pilha.pop();
+        //System.out.println(i);
+        fv = this.pilha.pop();
+        //System.out.println(fv);
+        pv = (float) ((float)fv/Math.pow((1+i), n));
+        //System.out.println(pv);
+        return pv;
+    }
+
+    public float calcularN(Stack<Float> pilha){
+        pilha.pop();
+        i = this.pilha.pop();
+        //System.out.println(i);
+        fv = this.pilha.pop();
+        //System.out.println(fv);
+        pv = this.pilha.pop();
+        //System.out.println(pv);
+        n = (float) ((float) Math.log(fv/pv)/Math.log(1+i));
+        //System.out.println(n);
+
+        return n;
+    }
+
+    public float calcularI(Stack<Float> pilha){
+        pilha.pop();
+        n = this.pilha.pop();
+        //System.out.println(n);
+        fv = this.pilha.pop();
+        //System.out.println(fv);
+        pv = this.pilha.pop();
+        //System.out.println(pv);
+        i = (float) ((float) ((Math.pow((fv/pv),(1/n)))-1));
+        //System.out.println(i);
+
+        return i;
     }
 
     @Override
@@ -70,10 +126,10 @@ public class MainActivity extends AppCompatActivity {
         divideButton = findViewById(R.id.div);
         enterButton = findViewById(R.id.enter);
 
-        n = findViewById(R.id.n);
-        i = findViewById(R.id.i);
-        pv = findViewById(R.id.PV);
-        fv = findViewById(R.id.FV);
+        nButton = findViewById(R.id.n);
+        iButton = findViewById(R.id.i);
+        pvButton = findViewById(R.id.PV);
+        fvButton = findViewById(R.id.FV);
 
         num1Button = findViewById(R.id.num1);
         num2Button = findViewById(R.id.num2);
@@ -88,6 +144,76 @@ public class MainActivity extends AppCompatActivity {
         dotButton = findViewById(R.id.dot);
 
         pilha = new Stack<>();
+        pilhaJuros = new Stack<>();
+
+        nButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editText.getText().length()==0){
+                    pilha.add(1f);
+                }else{
+                    pilha.add(Float.parseFloat(editText.getText().toString()));
+                }
+                if(pilha.size()==4){
+                    float result = calcularN(pilha);
+                    resultText.setText(String.valueOf(result));
+                    pilha.add(result);
+                }
+                editText.setText("");
+            }
+        });
+
+        iButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editText.getText().length()==0){
+                    pilha.add(1f);
+                }else{
+                    pilha.add(Float.parseFloat(editText.getText().toString()));
+                }
+                if(pilha.size()==4){
+                    float result = calcularI(pilha);
+                    resultText.setText(String.valueOf(result));
+                    pilha.add(result);
+                }
+                editText.setText("");
+            }
+        });
+
+        fvButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editText.getText().length()==0){
+                    pilha.add(1f);
+                }else{
+                    pilha.add(Float.parseFloat(editText.getText().toString()));
+                }
+                if(pilha.size()==4){
+                    float result = calcularFV(pilha);
+                    resultText.setText(String.valueOf(result));
+                    pilha.add(result);
+                }
+                editText.setText("");
+            }
+        });
+
+        pvButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editText.getText().length()==0){
+                    pilha.add(1f);
+                }else{
+                    pilha.add(Float.parseFloat(editText.getText().toString()));
+                }
+
+                if(pilha.size()==4){
+                    float result = calcularPV(pilha);
+                    resultText.setText(String.valueOf(result));
+                    pilha.add(result);
+                }
+                editText.setText("");
+            }
+        });
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
