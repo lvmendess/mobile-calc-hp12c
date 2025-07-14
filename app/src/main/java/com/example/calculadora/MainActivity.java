@@ -52,55 +52,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public float calcularFV(Stack<Float> pilha){
-        //System.out.println(pilha.pop());
+        pilha.pop(); //remove flag de fim de input
         n = this.pilha.pop();
-        //System.out.println(n);
         i = this.pilha.pop();
-        //System.out.println(i);
         pv = this.pilha.pop();
-        //System.out.println(pv);
         fv = (float) ((float) pv * Math.pow((1+i), n));
-        //System.out.println(fv);
         return fv;
     }
 
     public float calcularPV(Stack<Float> pilha){
-        pilha.pop();
+        pilha.pop();//remove flag de fim de input
         n = this.pilha.pop();
-        //System.out.println(n);
         i = this.pilha.pop();
-        //System.out.println(i);
         fv = this.pilha.pop();
-        //System.out.println(fv);
         pv = (float) ((float)fv/Math.pow((1+i), n));
-        //System.out.println(pv);
         return pv;
     }
 
     public float calcularN(Stack<Float> pilha){
-        pilha.pop();
+        pilha.pop();//remove flag de fim de input
         i = this.pilha.pop();
-        //System.out.println(i);
         fv = this.pilha.pop();
-        //System.out.println(fv);
         pv = this.pilha.pop();
-        //System.out.println(pv);
         n = (float) ((float) Math.log(fv/pv)/Math.log(1+i));
-        //System.out.println(n);
 
         return n;
     }
 
     public float calcularI(Stack<Float> pilha){
-        pilha.pop();
+        pilha.pop();//remove flag de fim de input
         n = this.pilha.pop();
-        //System.out.println(n);
         fv = this.pilha.pop();
-        //System.out.println(fv);
         pv = this.pilha.pop();
-        //System.out.println(pv);
         i = (float) ((float) ((Math.pow((fv/pv),(1/n)))-1));
-        //System.out.println(i);
 
         return i;
     }
@@ -150,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(editText.getText().length()==0){
-                    pilha.add(1f);
+                    pilha.add(1f);//flag de fim de input
                 }else{
                     pilha.add(Float.parseFloat(editText.getText().toString()));
                 }
@@ -167,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(editText.getText().length()==0){
-                    pilha.add(1f);
+                    pilha.add(1f);//flag de fim de input
                 }else{
                     pilha.add(Float.parseFloat(editText.getText().toString()));
                 }
@@ -184,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(editText.getText().length()==0){
-                    pilha.add(1f);
+                    pilha.add(1f);//flag de fim de input
                 }else{
                     pilha.add(Float.parseFloat(editText.getText().toString()));
                 }
@@ -201,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(editText.getText().length()==0){
-                    pilha.add(1f);
+                    pilha.add(1f);//flag de fim de input
                 }else{
                     pilha.add(Float.parseFloat(editText.getText().toString()));
                 }
